@@ -12,3 +12,11 @@ Le principe est de s'échapper du niveau vivant, en évitant les ennemis soit en
 * Basique qui tue lorsqu'il te voit
 * Un système de lenteur (accroupi, ramper) avec un ennemi aveugle
 * Une idée de boss ? 
+
+## Pixels arts à faire
+* armoire
+* rideau
+* porte
+* Porte finale
+* ennemi de base
+* bougie sur mur
