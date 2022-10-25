@@ -75,3 +75,13 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
+Assets/LightDefault.lighting
+Assets/LightDefault.lighting.meta
+Assets/Scenes/SampleScene.meta
+Assets/Scenes/SampleScene.unity
+Assets/Scenes/SampleScene/LightingData.asset
+Assets/Scenes/SampleScene/LightingData.asset.meta
+ProjectSettings/SceneTemplateSettings.json
+ProjectSettings/TagManager.asset
+Assets/Scenes/SampleScene.unity
+ProjectSettings/TagManager.asset
