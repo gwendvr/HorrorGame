@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     public float _reduceSpeedIfCrouching = 1f;
     public Animator _Animator;
     public SpriteRenderer _sprite;
-    public bool _isWalking = false;
-    public bool _isCrouching = false;
+    public bool _isMoving = false;
+    public bool _isStandUp = true;
     public Rigidbody2D rb;
 
     private PlayerAction _playerInput;
@@ -35,10 +35,58 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + moveInput * _moveSpeed * Time.deltaTime);
+        rb.MovePosition(rb.position + moveInput * _moveSpeed * Time.deltaTime * _reduceSpeedIfCrouching);
     }
+
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        _isMoving = !_isMoving;
+        AnimationPlayer();
     }
+
+    void OnCrouch()
+    {
+        _isStandUp = !_isStandUp;
+        if (_isStandUp)
+        {
+            _reduceSpeedIfCrouching = 1f;
+        }
+        else
+        {
+            _reduceSpeedIfCrouching = 0.33f;
+        }
+
+        AnimationPlayer();
+    }
+
+    private void AnimationPlayer()
+    {
+        if (_isStandUp)
+        {
+            if (_isMoving)
+            {
+                _Animator.SetTrigger("Walk");
+            }
+            else
+            {
+                _Animator.SetTrigger("StandUp");
+            }
+        }
+        else
+        {
+            if (_isMoving)
+            {
+                _Animator.SetTrigger("Crouch");
+            }
+            else
+            {
+                _Animator.SetTrigger("StandCrouch");
+            }
+        }
+
+    }
+
+
+
 }
