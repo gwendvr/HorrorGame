@@ -5,19 +5,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float _moveSpeed = 5f;
-    public float _reduceSpeedIfCrouching = 1f;
+    public float _moveSpeed = 5f, _reduceSpeedIfCrouching = 1f;
     public Animator _Animator;
     public SpriteRenderer _sprite;
-    public bool _isMoving = false;
-    public bool _isStandUp = true;
-    public Rigidbody2D rb;
+    public bool _isMoving = false, _isStandUp = true;
 
-    private PlayerAction _playerInput;
-    private Vector2 moveInput;
+    [SerializeField] Rigidbody2D rb;
+    PlayerAction _playerInput;
+    Vector2 moveInput;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,11 +22,12 @@ public class PlayerController : MonoBehaviour
         _playerInput = new PlayerAction();
         _playerInput.Enable();
     }
-
-    // Update is called once per frame
     void Update()
     {
-
+        if (moveInput.x != 0)_Animator.SetBool("IsMoving", true);
+        else _Animator.SetBool("IsMoving", false);
+        if (_isStandUp) _Animator.SetBool("IsUp", true);
+        else _Animator.SetBool("IsUp", false);
     }
 
     void FixedUpdate()
@@ -41,52 +38,11 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        _isMoving = !_isMoving;
-        AnimationPlayer();
     }
-
     void OnCrouch()
     {
         _isStandUp = !_isStandUp;
-        if (_isStandUp)
-        {
-            _reduceSpeedIfCrouching = 1f;
-        }
-        else
-        {
-            _reduceSpeedIfCrouching = 0.33f;
-        }
-
-        AnimationPlayer();
+        if (_isStandUp)_reduceSpeedIfCrouching = 1f;
+        else _reduceSpeedIfCrouching = 0.33f;
     }
-
-    private void AnimationPlayer()
-    {
-        if (_isStandUp)
-        {
-            if (_isMoving)
-            {
-                _Animator.SetTrigger("Walk");
-            }
-            else
-            {
-                _Animator.SetTrigger("StandUp");
-            }
-        }
-        else
-        {
-            if (_isMoving)
-            {
-                _Animator.SetTrigger("Crouch");
-            }
-            else
-            {
-                _Animator.SetTrigger("StandCrouch");
-            }
-        }
-
-    }
-
-
-
 }
