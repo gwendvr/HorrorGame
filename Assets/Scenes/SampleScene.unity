@@ -725,11 +725,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _reduceSpeedIfCrouching: 0.5
+  _reduceSpeedIfCrouching: 1
   _Animator: {fileID: 0}
   _sprite: {fileID: 2041813351}
-  _isWalking: 0
-  _isCrouching: 0
+  _isMoving: 0
+  _isStandUp: 1
   rb: {fileID: 0}
 --- !u!50 &2041813354
 Rigidbody2D:

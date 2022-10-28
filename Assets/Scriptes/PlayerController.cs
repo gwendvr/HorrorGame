@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        if (moveInput.x < 0) _sprite.flipX = true;
+        else if (moveInput.x > 0) _sprite.flipX = false;
     }
     void OnCrouch()
     {
