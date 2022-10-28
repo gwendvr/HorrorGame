@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer _sprite;
     public bool _isMoving = false, _isStandUp = true;
 
+    CreatureController CC;
     [SerializeField] Rigidbody2D rb;
     PlayerAction _playerInput;
     Vector2 moveInput;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        CC = FindObjectOfType<CreatureController>();
         rb = GetComponent<Rigidbody2D>();
         _Collider = GetComponent<CapsuleCollider2D>();
         _Animator = GetComponent<Animator>();

@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Creature
+  - CreatureArea
   layers:
   - Default
   - TransparentFX
@@ -43,6 +45,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 384118853
+    locked: 0
+  - name: Enemies
+    uniqueID: 2093121323
     locked: 0
   - name: Player
     uniqueID: 2355921967
