@@ -28,10 +28,22 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (moveInput.x != 0) _Animator.SetBool("IsMoving", true);
-        else _Animator.SetBool("IsMoving", false);
-        if (_isStandUp) _Animator.SetBool("IsUp", true);
-        else _Animator.SetBool("IsUp", false);
+        if (moveInput.x != 0)
+        {
+            _Animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            _Animator.SetBool("IsMoving", false);
+        }
+        if (_isStandUp)
+        {
+            _Animator.SetBool("IsUp", true);
+        }
+        else
+        {
+            _Animator.SetBool("IsUp", false);
+        }
     }
 
     void FixedUpdate()
@@ -42,14 +54,26 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        if (moveInput.x < 0) _sprite.flipX = true;
-        else if (moveInput.x > 0) _sprite.flipX = false;
+        if (moveInput.x < 0)
+        {
+            _sprite.flipX = true;
+        }
+        else if (moveInput.x > 0)
+        {
+            _sprite.flipX = false;
+        }
     }
     void OnCrouch()
     {
         _isStandUp = !_isStandUp;
-        if (_isStandUp) _reduceSpeedIfCrouching = 1f;
-        else _reduceSpeedIfCrouching = 0.33f;
+        if (_isStandUp)
+        {
+            _reduceSpeedIfCrouching = 1f;
+        }
+        else
+        {
+            _reduceSpeedIfCrouching = 0.33f;
+        }
     }
 
     void UpdateCollider()
