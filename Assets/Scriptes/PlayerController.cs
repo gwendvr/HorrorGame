@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public Animator _Animator;
     public SpriteRenderer _sprite;
     public bool _isMoving = false, _isStandUp = true;
+    public AudioSource _audio;
+
 
     CreatureController CC;
     [SerializeField] Rigidbody2D rb;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _playerInput = new PlayerAction();
         _playerInput.Enable();
+        _audio = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -49,10 +52,13 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + moveInput * _moveSpeed * Time.deltaTime * _reduceSpeedIfCrouching);
+
+        //FootSteps Sound;
     }
 
     void OnMove(InputValue value)
     {
+        _isMoving = !_isMoving;
         moveInput = value.Get<Vector2>();
         if (moveInput.x < 0)
         {
@@ -62,17 +68,37 @@ public class PlayerController : MonoBehaviour
         {
             _sprite.flipX = false;
         }
+
+        //Foot steps audio
+        if (_isStandUp && _isMoving)
+        {
+            _audio.Play();
+        }
+        else
+        {
+            _audio.Stop();
+        }
     }
+
     void OnCrouch()
     {
         _isStandUp = !_isStandUp;
         if (_isStandUp)
         {
             _reduceSpeedIfCrouching = 1f;
+
+            // Foot steps audio
+            if (_isMoving)
+            {
+                _audio.Play();
+            }
         }
         else
         {
             _reduceSpeedIfCrouching = 0.33f;
+
+            // Foot steps audio
+            _audio.Stop();
         }
     }
 

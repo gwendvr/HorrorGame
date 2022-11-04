@@ -7,11 +7,11 @@ public class CreatureController : MonoBehaviour
 
     public PlayerController _player;
     public Animator _Animator;
+    public AudioSource _ISeeYou;
 
     private SpriteRenderer _sprite;
     private bool _IsTrigered = false;
     [SerializeField] float _Speed = 6f;
-    [SerializeField] float _LeftOrRight = 0;
     [SerializeField] Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class CreatureController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         _player = FindObjectOfType<PlayerController>();
         _sprite = GetComponent<SpriteRenderer>();
-
+        _ISeeYou = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -56,6 +56,7 @@ public class CreatureController : MonoBehaviour
         {
             _IsTrigered = true;
             _Animator.SetBool("Walk", true);
+            _ISeeYou.Play();
         }
     }
     public void OnTriggerExit2D(Collider2D area)
@@ -64,6 +65,8 @@ public class CreatureController : MonoBehaviour
         {
             _IsTrigered = false;
             _Animator.SetBool("Walk", false);
+            _ISeeYou.Stop();
+
         }
     }
 
