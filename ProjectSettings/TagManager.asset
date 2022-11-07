@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Creature
   - CreatureArea
+  - Hideable
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 384118853
+    locked: 0
+  - name: decor
+    uniqueID: 661745685
     locked: 0
   - name: Enemies
     uniqueID: 2093121323
