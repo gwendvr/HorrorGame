@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //Public
+    //Public 
     public float _moveSpeed = 5f, _reduceSpeedIfCrouching = 1f, _blockIfHidden = 1f;
     public Animator _Animator;
     public SpriteRenderer _sprite;
