@@ -13,7 +13,7 @@ public class CreatureController : MonoBehaviour
 
     private bool _wanderOnLeft, _wanderOnRight;
     private float _sideForBegginWandering = 0f;
-    [SerializeField] Vector2 positionforarea;
+    [SerializeField] Vector2 positionMaxLeft, positionMaxRight;
     private SpriteRenderer _sprite;
     [SerializeField] float _speed;
     private bool _isWandering;
@@ -28,7 +28,9 @@ public class CreatureController : MonoBehaviour
         _player = FindObjectOfType<PlayerController>();
         _sprite = GetComponent<SpriteRenderer>();
         _ISeeYou = GetComponent<AudioSource>();
-        positionforarea = rb.position;
+        positionMaxLeft.x = rb.position.x + 5f;
+        positionMaxRight.x = rb.position.x - 5f;
+
         StartCoroutine(Wander());
     }
 
@@ -76,9 +78,9 @@ public class CreatureController : MonoBehaviour
 
     public IEnumerator NewWanderingArea()
     {
+        positionMaxLeft.x = rb.position.x - 5f;
+        positionMaxRight.x = rb.position.x + 5f;
         yield return new WaitForSeconds(4f);
-        positionforarea = rb.position;
-
         StartCoroutine(Wander());
     }
 
@@ -86,20 +88,20 @@ public class CreatureController : MonoBehaviour
     {
         _isWandering = true;
         //determine dans quel sens va la créature
-        _sideForBegginWandering = Random.Range(-0.1f, 0.1f);
+        _sideForBegginWandering = Random.Range(-1f, 1f);
         rb.MovePosition(rb.position + Vector2.left * _sideForBegginWandering);
-        if (rb.position.x < positionforarea.x)
+        if (_sideForBegginWandering < 0)
         {
             _wanderOnLeft = true;
         }
-        else if (rb.position.x > positionforarea.x)
+        else
         {
             _wanderOnRight = true;
         }
 
         if (_wanderOnLeft)
         {
-            if (rb.position.x < positionforarea.x - 5f)
+            if (rb.position.x < positionMaxLeft.x)
             {
                 _speed = _SpeedWhenNotTriggered;
                 _sprite.flipX = false;
@@ -113,7 +115,7 @@ public class CreatureController : MonoBehaviour
         }
         else if (_wanderOnRight)
         {
-            if (rb.position.x > positionforarea.x + 5f)
+            if (rb.position.x > positionMaxRight.x)
             {
                 _speed = -_SpeedWhenNotTriggered;
                 _sprite.flipX = true;
