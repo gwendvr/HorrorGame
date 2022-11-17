@@ -10,8 +10,8 @@ public class CreatureController : MonoBehaviour
     public AudioSource _ISeeYou;
 
 
-
-    private bool _wanderOnLeft, _wanderOnRight;
+    [SerializeField] bool _isTriggered = false;
+    [SerializeField] bool _wanderOnLeft, _wanderOnRight;
     private float _sideForBegginWandering = 0f;
     [SerializeField] Vector2 positionMaxLeft, positionMaxRight;
     private SpriteRenderer _sprite;
@@ -37,7 +37,7 @@ public class CreatureController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_isWandering)
+        if (!_isWandering && !_isTriggered)
         {
             StartCoroutine(Wander());
         }
@@ -49,8 +49,9 @@ public class CreatureController : MonoBehaviour
 
         if (area.CompareTag("Player"))
         {
+            _isTriggered = true;
             StopCoroutine(Wander());
-            
+
             if (this.transform.position.x - _player.transform.position.x < 0)
             {
                 _speed = _SpeedWhenTriggered;
@@ -63,12 +64,15 @@ public class CreatureController : MonoBehaviour
             }
             _Animator.SetBool("Walk", true);
             _ISeeYou.Play();
+            _wanderOnLeft = false;
+            _wanderOnRight = false;
         }
     }
     public void OnTriggerExit2D(Collider2D area)
     {
         if (area.CompareTag("Player"))
         {
+            _isTriggered = false;
             _speed = 0f;
             _Animator.SetBool("Walk", false);
             _ISeeYou.Stop();
@@ -76,57 +80,68 @@ public class CreatureController : MonoBehaviour
         }
     }
 
+    
     public IEnumerator NewWanderingArea()
     {
         positionMaxLeft.x = rb.position.x - 5f;
         positionMaxRight.x = rb.position.x + 5f;
         yield return new WaitForSeconds(4f);
         StartCoroutine(Wander());
-    }
+    } 
 
     public IEnumerator Wander()
     {
-        _isWandering = true;
-        //determine dans quel sens va la créature
-        _sideForBegginWandering = Random.Range(-1f, 1f);
-        rb.MovePosition(rb.position + Vector2.left * _sideForBegginWandering);
-        if (_sideForBegginWandering < 0)
+        if (!_isTriggered)
         {
-            _wanderOnLeft = true;
-        }
-        else
-        {
-            _wanderOnRight = true;
-        }
+            _isWandering = true;
+            //determine dans quel sens va la créature
+            _sideForBegginWandering = Random.Range(-1f, 1f);
+            rb.MovePosition(rb.position + Vector2.left * _sideForBegginWandering);
+            if (!_wanderOnLeft && !_wanderOnRight)
+            {
+                if (_sideForBegginWandering < 0)
+                {
+                    _wanderOnLeft = true;
+                }
+                else
+                {
+                    _wanderOnRight = true;
+                }
+            }
 
-        if (_wanderOnLeft)
-        {
-            if (rb.position.x < positionMaxLeft.x)
+            if (_wanderOnLeft)
             {
-                _speed = _SpeedWhenNotTriggered;
-                _sprite.flipX = false;
+                if (rb.position.x <= positionMaxLeft.x)
+                {
+                    _speed = _SpeedWhenNotTriggered;
+                    _sprite.flipX = false;
+                }
+                else
+                {
+                    _speed = 0f;
+                    yield return new WaitForSeconds(3f);
+                    _wanderOnLeft = false;
+                    _wanderOnRight = true;
+                }
             }
-            else
+            else if (_wanderOnRight)
             {
-                _speed = 0f;
-                yield return new WaitForSeconds(3f);
-                _wanderOnLeft = false;
+                if (rb.position.x >= positionMaxRight.x)
+                {
+                    _speed = -_SpeedWhenNotTriggered;
+                    _sprite.flipX = true;
+                }
+                else
+                {
+                    _speed = 0f;
+                    yield return new WaitForSeconds(3f);
+                    _wanderOnRight = false;
+                    _wanderOnLeft = true;
+
+                }
             }
+            _isWandering = false;
+
         }
-        else if (_wanderOnRight)
-        {
-            if (rb.position.x > positionMaxRight.x)
-            {
-                _speed = -_SpeedWhenNotTriggered;
-                _sprite.flipX = true;
-            }
-            else
-            {
-                _speed = 0f;
-                yield return new WaitForSeconds(3f);
-                _wanderOnRight = false;
-            }
-        }
-        _isWandering = false;
     }
 }
