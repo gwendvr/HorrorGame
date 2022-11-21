@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource _audio;
 
     //Private
+    [SerializeField] bool _isDead = false;
     Color _PlayerColor;
     bool _canHide = false, _isHidden = false;
     CreatureController CC;
@@ -32,12 +34,18 @@ public class PlayerController : MonoBehaviour
         _playerInput = new PlayerAction();
         _playerInput.Enable();
         _audio = GetComponent<AudioSource>();
+
+        _Animator.SetBool("IsMoving", false);
+        _Animator.SetBool("IsUp", false);
+        _Animator.SetBool("IsHide", true);
+
     }
     void Update()
     {
         if (moveInput.x != 0)
         {
             _Animator.SetBool("IsMoving", true);
+            _Animator.SetBool("IsHide", false);
         }
         else
         {
@@ -50,6 +58,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             _Animator.SetBool("IsUp", false);
+            _Animator.SetBool("IsHide", false);
         }
     }
 
@@ -148,6 +157,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    //La creature tue le joueur
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Deadly"))
+        {
+            _isDead = true;
+        }
+    }
+
+    //se cache dans une armoir ou autre
     void OnHide()
     {
         if (_isHidden)
@@ -156,6 +176,7 @@ public class PlayerController : MonoBehaviour
             _sprite.color = _PlayerColor;
             _isHidden = false;
             _canHide = true;
+            _Animator.SetBool("IsHide", true);
             UpdateCollider();
         }
 

@@ -7,6 +7,7 @@ TagManager:
   - Creature
   - CreatureArea
   - Hideable
+  - Deadly
   layers:
   - Default
   - TransparentFX

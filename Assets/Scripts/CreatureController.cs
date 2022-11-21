@@ -83,7 +83,7 @@ public class CreatureController : MonoBehaviour
     public IEnumerator NewWanderingArea()
     {
         
-        positionMaxLeft.x = rb.position.x + 10f;
+        positionMaxLeft.x = rb.position.x + 12f;
         positionMaxRight.x = rb.position.x - 10f;
         areaReseted = true;
         yield return new WaitForSeconds(1f);
