@@ -444,10 +444,8 @@ MonoBehaviour:
   _wanderOnRight: 0
   positionMaxLeft: {x: 0, y: 0}
   positionMaxRight: {x: 0, y: 0}
-  _speed: 0
-  _SpeedWhenTriggered: 6
-  _SpeedWhenNotTriggered: 4
-  rb: {fileID: 0}
+  _isWandering: 0
+  areaReseted: 0
 --- !u!212 &348405068
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -527,7 +525,6 @@ GameObject:
   - component: {fileID: 437269158}
   - component: {fileID: 437269157}
   - component: {fileID: 437269161}
-  - component: {fileID: 437269159}
   - component: {fileID: 437269160}
   - component: {fileID: 437269162}
   - component: {fileID: 437269163}
@@ -598,7 +595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437269155}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.3, y: -0.19, z: 0}
+  m_LocalPosition: {x: 21.7, y: -0.19, z: 0}
   m_LocalScale: {x: 2.1433327, y: 2.4408154, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -606,22 +603,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &437269159
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437269155}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.6597323, y: 0.22538677}
-  m_Size: {x: 2.319464, y: 4.3590984}
-  m_Direction: 0
 --- !u!50 &437269160
 Rigidbody2D:
   serializedVersion: 4
@@ -641,7 +622,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 6
 --- !u!114 &437269161
 MonoBehaviour:
@@ -663,10 +644,8 @@ MonoBehaviour:
   _wanderOnRight: 0
   positionMaxLeft: {x: 0, y: 0}
   positionMaxRight: {x: 0, y: 0}
-  _speed: 0
-  _SpeedWhenTriggered: 6
-  _SpeedWhenNotTriggered: 4
-  rb: {fileID: 0}
+  _isWandering: 0
+  areaReseted: 0
 --- !u!95 &437269162
 Animator:
   serializedVersion: 4
@@ -794,7 +773,6 @@ GameObject:
   - component: {fileID: 466576264}
   - component: {fileID: 466576263}
   - component: {fileID: 466576265}
-  - component: {fileID: 466576262}
   - component: {fileID: 466576261}
   - component: {fileID: 466576266}
   - component: {fileID: 466576267}
@@ -804,7 +782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &466576261
 Rigidbody2D:
   serializedVersion: 4
@@ -826,22 +804,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!70 &466576262
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466576260}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.014909703, y: -0.8127055}
-  m_Size: {x: 1.119278, y: 4.117965}
-  m_Direction: 0
 --- !u!212 &466576263
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -930,10 +892,8 @@ MonoBehaviour:
   _wanderOnRight: 0
   positionMaxLeft: {x: 0, y: 0}
   positionMaxRight: {x: 0, y: 0}
-  _speed: 0
-  _SpeedWhenTriggered: 6
-  _SpeedWhenNotTriggered: 4
-  rb: {fileID: 0}
+  _isWandering: 0
+  areaReseted: 0
 --- !u!82 &466576266
 AudioSource:
   m_ObjectHideFlags: 0

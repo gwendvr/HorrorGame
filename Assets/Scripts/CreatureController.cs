@@ -15,11 +15,9 @@ public class CreatureController : MonoBehaviour
     private float _sideForBegginWandering = 0f;
     [SerializeField] Vector2 positionMaxLeft, positionMaxRight;
     private SpriteRenderer _sprite;
-    [SerializeField] float _speed;
-    private bool _isWandering;
-    [SerializeField] float _SpeedWhenTriggered = 6f;
-    [SerializeField] float _SpeedWhenNotTriggered = 4f;
-    [SerializeField] Rigidbody2D rb;
+    [SerializeField] bool _isWandering, areaReseted = false;
+    private float _SpeedWhenTriggered = 6f, _SpeedWhenNotTriggered = 4f, _speed;
+    private Rigidbody2D rb;
 
     void Start()
     {
@@ -73,6 +71,7 @@ public class CreatureController : MonoBehaviour
         if (area.CompareTag("Player"))
         {
             _isTriggered = false;
+            _isWandering = false;
             _speed = 0f;
             _Animator.SetBool("Walk", false);
             _ISeeYou.Stop();
@@ -83,9 +82,11 @@ public class CreatureController : MonoBehaviour
     
     public IEnumerator NewWanderingArea()
     {
-        positionMaxLeft.x = rb.position.x - 5f;
-        positionMaxRight.x = rb.position.x + 5f;
-        yield return new WaitForSeconds(4f);
+        
+        positionMaxLeft.x = rb.position.x + 10f;
+        positionMaxRight.x = rb.position.x - 10f;
+        areaReseted = true;
+        yield return new WaitForSeconds(1f);
         StartCoroutine(Wander());
     } 
 
@@ -93,6 +94,12 @@ public class CreatureController : MonoBehaviour
     {
         if (!_isTriggered)
         {
+            //attendre avant de reprendre le wandering
+            if (areaReseted)
+            {
+                yield return new WaitForSeconds(4f);
+                areaReseted = false;
+            }
             _isWandering = true;
             //determine dans quel sens va la créature
             _sideForBegginWandering = Random.Range(-1f, 1f);
@@ -114,7 +121,7 @@ public class CreatureController : MonoBehaviour
                 if (rb.position.x <= positionMaxLeft.x)
                 {
                     _speed = _SpeedWhenNotTriggered;
-                    _sprite.flipX = false;
+                    _sprite.flipX = true;
                 }
                 else
                 {
@@ -129,7 +136,7 @@ public class CreatureController : MonoBehaviour
                 if (rb.position.x >= positionMaxRight.x)
                 {
                     _speed = -_SpeedWhenNotTriggered;
-                    _sprite.flipX = true;
+                    _sprite.flipX = false;
                 }
                 else
                 {
