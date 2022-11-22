@@ -122,10 +122,12 @@ public class CreatureController : MonoBehaviour
                 {
                     _speed = _SpeedWhenNotTriggered;
                     _sprite.flipX = true;
+                    _Animator.SetBool("Walk", true);
                 }
                 else
                 {
                     _speed = 0f;
+                    _Animator.SetBool("Walk", false);
                     yield return new WaitForSeconds(3f);
                     _wanderOnLeft = false;
                     _wanderOnRight = true;
@@ -135,12 +137,14 @@ public class CreatureController : MonoBehaviour
             {
                 if (rb.position.x >= positionMaxRight.x)
                 {
+                    _Animator.SetBool("Walk", true);
                     _speed = -_SpeedWhenNotTriggered;
                     _sprite.flipX = false;
                 }
                 else
                 {
                     _speed = 0f;
+                    _Animator.SetBool("Walk", false);
                     yield return new WaitForSeconds(3f);
                     _wanderOnRight = false;
                     _wanderOnLeft = true;

@@ -12,11 +12,12 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer _sprite;
     public bool _isMoving = false, _isStandUp = true;
     public AudioSource _audio;
+    public bool _isHidden = false;
 
     //Private
     [SerializeField] bool _isDead = false;
     Color _PlayerColor;
-    bool _canHide = false, _isHidden = false;
+    bool _canHide = false;
     CreatureController CC;
     [SerializeField] Rigidbody2D rb;
     PlayerAction _playerInput;
