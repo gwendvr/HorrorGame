@@ -8,6 +8,7 @@ public class CreatureController : MonoBehaviour
     public PlayerController _player;
     public Animator _Animator;
     public AudioSource _ISeeYou;
+    public GameObject _Creature;
 
 
     [SerializeField] bool _isTriggered = false;
@@ -79,7 +80,18 @@ public class CreatureController : MonoBehaviour
         }
     }
 
-    
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Player"))
+        {
+            if (_player.HitACreature())
+            {
+                Destroy(_Creature);
+            }
+        }
+    }
+
+
     public IEnumerator NewWanderingArea()
     {
         

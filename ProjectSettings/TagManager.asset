@@ -8,6 +8,8 @@ TagManager:
   - CreatureArea
   - Hideable
   - Deadly
+  - Wall
+  - Knife
   layers:
   - Default
   - TransparentFX
@@ -56,4 +58,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2355921967
+    locked: 0
+  - name: HUD
+    uniqueID: 2821453489
     locked: 0

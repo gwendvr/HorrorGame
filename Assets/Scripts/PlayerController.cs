@@ -13,16 +13,23 @@ public class PlayerController : MonoBehaviour
     public bool _isMoving = false, _isStandUp = true;
     public AudioSource _audio;
     public bool _isHidden = false;
+    public HudController _Hud;
+    public GameObject _Knife;
+
 
     //Private
-    [SerializeField] bool _isDead = false;
+    private bool _isDead = false;
     Color _PlayerColor;
-    bool _canHide = false;
+    bool _canHide = false, _canTake = false;
     CreatureController CC;
-    [SerializeField] Rigidbody2D rb;
+    private Rigidbody2D rb;
     PlayerAction _playerInput;
     Vector2 moveInput;
     CapsuleCollider2D _Collider;
+
+    //Interactions
+    private bool _isLocker = false, _isKnife = false;
+    private bool _haveAKnife = false;
 
     void Start()
     {
@@ -146,7 +153,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Hideable"))
         {
+            _isLocker = true;
             _canHide = true;
+        }
+        if (collision.CompareTag("Knife"))
+        {
+            _canTake = true;
+            _isKnife = true;
         }
     }
 
@@ -155,39 +168,59 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Hideable"))
         {
             _canHide = false;
+            _isLocker = false;
+        }
+        if (collision.CompareTag("Knife"))
+        {
+            _isKnife = false;
+        }
+    }
+    //se cache dans une armoir ou autre
+    void OnInteract()
+    {
+        if (_isLocker)
+        {
+            if (_isHidden)
+            {
+                _blockIfHidden = 1f;
+                _sprite.color = _PlayerColor;
+                _isHidden = false;
+                _canHide = true;
+                _Animator.SetBool("IsHide", true);
+                UpdateCollider();
+            }
+
+            else if (_canHide)
+            {
+                _blockIfHidden = 0f;
+                _sprite.color = new Color(0, 0, 0, 0);
+                _canHide = false;
+                _isHidden = true;
+                UpdateCollider();
+            }
+        }
+        if (_isKnife)
+        {
+            _haveAKnife = true;
+            _Hud.ShowKnifeInventory();
+            Destroy(_Knife);
         }
     }
 
-
-    //La creature tue le joueur
-    private void OnCollisionEnter2D(Collision2D collision)
+    public bool HitACreature()
     {
-        if (collision.collider.CompareTag("Deadly"))
+        bool _stillalive;
+        if (_haveAKnife)
         {
+            _stillalive = true;
+            _haveAKnife = false;
+            _Hud.HideKnifeInventory();
+        }
+        else
+        {
+            _stillalive = false;
             _isDead = true;
         }
-    }
-
-    //se cache dans une armoir ou autre
-    void OnHide()
-    {
-        if (_isHidden)
-        {
-            _blockIfHidden = 1f;
-            _sprite.color = _PlayerColor;
-            _isHidden = false;
-            _canHide = true;
-            _Animator.SetBool("IsHide", true);
-            UpdateCollider();
-        }
-
-        else if (_canHide)
-        {
-            _blockIfHidden = 0f;
-            _sprite.color = new Color (0,0,0,0);
-            _canHide = false;
-            _isHidden = true;
-            UpdateCollider();
-        }
+        return _stillalive;
     }
 }

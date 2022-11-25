@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hide",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "54a1e4c4-398a-4185-b31e-1380c5d49643",
                     "expectedControlType": "Button",
@@ -118,7 +118,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Hide",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
