@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public HudController _Hud;
     public GameObject _Knife;
     public bool _DidacticielOn = false;
+    
 
 
     //Private
@@ -137,7 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_isHidden)
         {
-            _Collider.size = new Vector2(3.15f, 1.5f);
+            _Collider.size = new Vector2(1.4f, 1.5f);
             _Collider.offset = new Vector2(0f, 1.2f);
             _Collider.direction = CapsuleDirection2D.Horizontal;
         }
@@ -168,6 +169,18 @@ public class PlayerController : MonoBehaviour
             _canTake = true;
             _isKnife = true;
         }
+        if (collision.CompareTag("GetCrazyStep1"))
+        {
+            _Hud.ShowCrazy1();
+        }
+        if (collision.CompareTag("GetCrazyStep2"))
+        {
+            _Hud.ShowCrazy2();
+        }
+        if (collision.CompareTag("GetCrazyStep3"))
+        {
+            _Hud.ShowCrazy3();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -186,6 +199,19 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Knife"))
         {
             _isKnife = false;
+        }
+
+        if (collision.CompareTag("GetCrazyStep1"))
+        {
+            _Hud.HideCrazy1();
+        }
+        if (collision.CompareTag("GetCrazyStep2"))
+        {
+            _Hud.HideCrazy2();
+        }
+        if (collision.CompareTag("GetCrazyStep3"))
+        {
+            _Hud.HideCrazy3();
         }
     }
     //se cache dans une armoir ou autre

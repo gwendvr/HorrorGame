@@ -11,6 +11,11 @@ TagManager:
   - Wall
   - Knife
   - Win
+  - WallCreature
+  - SpeedChange
+  - GetCrazyStep1
+  - GetCrazyStep2
+  - GetCrazyStep3
   layers:
   - Default
   - TransparentFX
@@ -59,6 +64,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2355921967
+    locked: 0
+  - name: WallCreature
+    uniqueID: 2639075441
     locked: 0
   - name: HUD
     uniqueID: 2821453489

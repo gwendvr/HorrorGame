@@ -9,16 +9,17 @@ public class CreatureController : MonoBehaviour
     public Animator _Animator;
     public AudioSource _ISeeYou;
     public GameObject _Creature;
+    public Vector2 positionMaxLeft, positionMaxRight;
+    public bool _wanderOnLeft, _wanderOnRight;
 
 
     [SerializeField] bool _isTriggered = false;
-    [SerializeField] bool _wanderOnLeft, _wanderOnRight;
     private float _sideForBegginWandering = 0f;
-    [SerializeField] Vector2 positionMaxLeft, positionMaxRight;
     private SpriteRenderer _sprite;
     [SerializeField] bool _isWandering, areaReseted = false;
     private float _SpeedWhenTriggered = 6f, _SpeedWhenNotTriggered = 4f, _speed;
     private Rigidbody2D rb;
+    private float _isBlocked = 1f;
 
     void Start()
     {
@@ -27,8 +28,16 @@ public class CreatureController : MonoBehaviour
         _player = FindObjectOfType<PlayerController>();
         _sprite = GetComponent<SpriteRenderer>();
         _ISeeYou = GetComponent<AudioSource>();
-        positionMaxLeft.x = rb.position.x + 5f;
-        positionMaxRight.x = rb.position.x - 5f;
+        if (positionMaxLeft.x == 0)
+        {
+            positionMaxLeft.x = rb.position.x + 5f;
+        }
+        if (positionMaxRight.x == 0)
+        {
+            positionMaxRight.x = rb.position.x - 5f;
+        }
+
+
 
         StartCoroutine(Wander());
     }
@@ -40,7 +49,7 @@ public class CreatureController : MonoBehaviour
         {
             StartCoroutine(Wander());
         }
-        rb.MovePosition(rb.position + Vector2.right * _speed * Time.deltaTime);
+        rb.MovePosition(rb.position + Vector2.right * _speed * Time.deltaTime * _isBlocked);
     }
 
     public void OnTriggerEnter2D(Collider2D area)
@@ -66,6 +75,14 @@ public class CreatureController : MonoBehaviour
             _wanderOnLeft = false;
             _wanderOnRight = false;
         }
+
+        if (area.CompareTag("WallCreature"))
+        {
+
+            _sprite.color = Color.black;
+            _isBlocked = 0f;
+        }
+
     }
     public void OnTriggerExit2D(Collider2D area)
     {
@@ -89,14 +106,15 @@ public class CreatureController : MonoBehaviour
                 Destroy(_Creature);
             }
         }
+
     }
 
 
     public IEnumerator NewWanderingArea()
     {
         
-        positionMaxLeft.x = rb.position.x + 12f;
-        positionMaxRight.x = rb.position.x - 10f;
+        positionMaxLeft.x = rb.position.x + 15f;
+        positionMaxRight.x = rb.position.x - 15f;
         areaReseted = true;
         yield return new WaitForSeconds(1f);
         StartCoroutine(Wander());
