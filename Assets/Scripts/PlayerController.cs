@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour
     public bool _isHidden = false;
     public HudController _Hud;
     public GameObject _Knife;
+    public bool _DidacticielOn = false;
 
 
     //Private
+    menuController _menu;
     private bool _isDead = false;
     Color _PlayerColor;
     bool _canHide = false, _canTake = false;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        _menu = FindObjectOfType<menuController>();
         _PlayerColor = _sprite.color;
         CC = FindObjectOfType<CreatureController>();
         rb = GetComponent<Rigidbody2D>();
@@ -77,7 +80,8 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value)
     {
-
+        if (!_DidacticielOn)
+        {
             _isMoving = !_isMoving;
             moveInput = value.Get<Vector2>();
             if (moveInput.x < 0)
@@ -98,13 +102,15 @@ public class PlayerController : MonoBehaviour
             {
                 _audio.Stop();
             }
+        }
         
 
     }
 
     void OnCrouch()
     {
-
+        if (!_DidacticielOn)
+        {
             _isStandUp = !_isStandUp;
             if (_isStandUp)
             {
@@ -123,6 +129,7 @@ public class PlayerController : MonoBehaviour
                 // Foot steps audio
                 _audio.Stop();
             }
+        }
 
     }
 
@@ -170,6 +177,12 @@ public class PlayerController : MonoBehaviour
             _canHide = false;
             _isLocker = false;
         }
+
+        if (collision.CompareTag("Win"))
+        {
+            _menu.BackToMenu();
+        }
+
         if (collision.CompareTag("Knife"))
         {
             _isKnife = false;
@@ -205,8 +218,13 @@ public class PlayerController : MonoBehaviour
             _Hud.ShowKnifeInventory();
             Destroy(_Knife);
         }
+        if (_DidacticielOn)
+        {
+
+        }
     }
 
+    //system knife
     public bool HitACreature()
     {
         bool _stillalive;
@@ -222,5 +240,16 @@ public class PlayerController : MonoBehaviour
             _isDead = true;
         }
         return _stillalive;
+    }
+
+
+    public void IsOnDidacticiel()
+    {
+        _DidacticielOn = true;
+    }
+
+    public void IsntOnDidacticiel()
+    {
+        _DidacticielOn = false;
     }
 }
