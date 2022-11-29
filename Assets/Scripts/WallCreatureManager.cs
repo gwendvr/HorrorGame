@@ -7,18 +7,23 @@ public class WallCreatureManager : MonoBehaviour
 {
 
     public Rigidbody2D rb;
+    public GameObject _Player;
     public int _stage = 0;
     public float _speed = 5f;
+    private AudioSource _Audio;
+    
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _Audio= GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
         rb.MovePosition(rb.position + Vector2.right * _speed * Time.deltaTime);
+        //_Audio.volume = (_Player.transform.position.x / rb.position.x) - 0.5f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,13 +34,13 @@ public class WallCreatureManager : MonoBehaviour
         }
         switch (_stage)
         {
-            case 0: _speed = 7.5f;
+            case 0: _speed = 2f;
                 break;
             case 1: _speed = 1.5f;
                 break;
-            case 2: _speed = 3f;
+            case 2: _speed = 2f;
                 break;
-            case 3: _speed = 15f;
+            case 3: _speed = 5f;
                 break;
         }
     }

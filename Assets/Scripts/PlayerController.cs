@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public HudController _Hud;
     public GameObject _Knife;
     public bool _DidacticielOn = false;
-    
 
 
     //Private
@@ -169,6 +168,10 @@ public class PlayerController : MonoBehaviour
             _canTake = true;
             _isKnife = true;
         }
+        if (collision.CompareTag("Win"))
+        {
+            _menu.BackToMenu();
+        }
         if (collision.CompareTag("GetCrazyStep1"))
         {
             _Hud.ShowCrazy1();
@@ -189,11 +192,6 @@ public class PlayerController : MonoBehaviour
         {
             _canHide = false;
             _isLocker = false;
-        }
-
-        if (collision.CompareTag("Win"))
-        {
-            _menu.BackToMenu();
         }
 
         if (collision.CompareTag("Knife"))
@@ -268,7 +266,13 @@ public class PlayerController : MonoBehaviour
         return _stillalive;
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Deadly"))
+        {
+            _menu.Die();
+        }
+    }
     public void IsOnDidacticiel()
     {
         _DidacticielOn = true;
