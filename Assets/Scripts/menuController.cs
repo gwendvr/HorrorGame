@@ -7,9 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class menuController : MonoBehaviour
 {
+    public OptionController _oc;
     public GameObject selectOption;
+    public GameObject selectSound;
+    public GameObject selectDoor;
+    public GameObject menu;
+    public GameObject option;
+    public GameObject menuBg;
+    public GameObject levelBg;
     void Start()
     {
+        _oc = FindObjectOfType<OptionController>();
+        menu.SetActive(true);
+        option.SetActive(false);
         EventSystem.current.SetSelectedGameObject(selectOption);
     }
 
@@ -28,13 +38,25 @@ public class menuController : MonoBehaviour
         Application.Quit();
     }
 
-    public void BackToMenu()
+    public void setting()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        menu.SetActive(false);
+        option.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(selectSound);
     }
 
-    public void Die()
+    public void saveOption()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        _oc.saveOption();
+        menu.SetActive(true);
+        option.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(selectOption);
+    }
+
+    public void showLevels()
+    {
+        menuBg.SetActive(false);
+        levelBg.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(selectDoor);
     }
 }
