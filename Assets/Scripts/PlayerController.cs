@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.CompareTag("Win"))
         {
-            _menu.BackToMenu();
+           
         }
         if (collision.CompareTag("GetCrazyStep1"))
         {
@@ -270,7 +270,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Deadly"))
         {
-            _menu.Die();
+            
         }
     }
     public void IsOnDidacticiel()
