@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 393670836}
   m_Layer: 0
   m_Name: DeathArea
-  m_TagString: Deadly
+  m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2096,7 +2096,7 @@ GameObject:
   - component: {fileID: 1086393936}
   m_Layer: 0
   m_Name: DeathArea
-  m_TagString: Deadly
+  m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2936,6 +2936,7 @@ GameObject:
   - component: {fileID: 1678398049}
   - component: {fileID: 1678398048}
   - component: {fileID: 1678398052}
+  - component: {fileID: 1678398053}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3046,6 +3047,20 @@ MonoBehaviour:
   _AnimCrazyStep2: {fileID: 0}
   _AnimCrazyStep3: {fileID: 0}
   _Knife: {fileID: 1237396279}
+  _level: {fileID: 0}
+--- !u!114 &1678398053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678398047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0790e65331d06844d9f88823039b6f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
 --- !u!1 &1684053855
 GameObject:
   m_ObjectHideFlags: 0
@@ -3058,7 +3073,7 @@ GameObject:
   - component: {fileID: 1684053857}
   m_Layer: 0
   m_Name: DeathArea
-  m_TagString: Deadly
+  m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3593,6 +3608,7 @@ MonoBehaviour:
   _Hud: {fileID: 1678398052}
   _Knife: {fileID: 821201228}
   _DidacticielOn: 0
+  _Light: {fileID: 1960872822}
 --- !u!50 &2041813354
 Rigidbody2D:
   serializedVersion: 4

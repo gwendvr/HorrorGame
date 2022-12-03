@@ -16,11 +16,12 @@ public class PlayerController : MonoBehaviour
     public HudController _Hud;
     public GameObject _Knife;
     public bool _DidacticielOn = false;
+    public LightController _Light;
 
 
     //Private
     menuController _menu;
-    private bool _isDead = false;
+    private bool _isDead = false, _haveWon = false;
     Color _PlayerColor;
     bool _canHide = false, _canTake = false;
     CreatureController CC;
@@ -170,7 +171,8 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.CompareTag("Win"))
         {
-           
+            _haveWon= true;
+            _Light.FadeToDark();
         }
         if (collision.CompareTag("GetCrazyStep1"))
         {
@@ -261,16 +263,15 @@ public class PlayerController : MonoBehaviour
         else
         {
             _stillalive = false;
-            _isDead = true;
+            _Light.FadeToDark();
         }
         return _stillalive;
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Deadly"))
         {
-            
+            _Light.FadeToDark();
         }
     }
     public void IsOnDidacticiel()
@@ -281,5 +282,17 @@ public class PlayerController : MonoBehaviour
     public void IsntOnDidacticiel()
     {
         _DidacticielOn = false;
+    }
+
+    public void ChangeLevel()
+    {
+        if (_haveWon)
+        {
+            _Hud.Win();
+        }
+        else
+        {
+            _Hud.Die();
+        }
     }
 }

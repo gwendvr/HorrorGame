@@ -8,13 +8,19 @@ public class HudController : MonoBehaviour
     public GameObject _GetCrazyStep1, _GetCrazyStep2, _GetCrazyStep3;
     public Animator _AnimCrazyStep1, _AnimCrazyStep2, _AnimCrazyStep3;
     public GameObject _Knife;
+    public levelController _level;
     // Start is called before the first frame update
     void Start()
     {
+        _level = GetComponent<levelController>();
+
         _Knife.SetActive(false);
-        _AnimCrazyStep1.SetBool("Crazy1", true);
-        _AnimCrazyStep2.SetBool("Crazy2", true);
-        _AnimCrazyStep3.SetBool("Crazy3", false);
+        if (_level.index == 4)
+        {
+            _AnimCrazyStep1.SetBool("Crazy1", true);
+            _AnimCrazyStep2.SetBool("Crazy2", true);
+            _AnimCrazyStep3.SetBool("Crazy3", false);
+        }
 
     }
 
@@ -35,6 +41,7 @@ public class HudController : MonoBehaviour
     }
 
     //Crazy Effects
+    
     public void ShowCrazy1()
     {
         _AnimCrazyStep1.SetBool("Crazy1", true);
@@ -62,5 +69,25 @@ public class HudController : MonoBehaviour
     public void HideCrazy3()
     {
         _AnimCrazyStep3.SetBool("Crazy3", false);
+    }
+
+    public void Win()
+    {
+        if (_level.index < 4)
+        {
+            _level.index += 1;
+        }
+        else
+        {
+            _level.index = 0;
+        }
+        _level.loadlevel();
+    }
+
+    public void Die()
+    {
+        _level.index = 0;
+        _level.loadlevel();
+
     }
 }
