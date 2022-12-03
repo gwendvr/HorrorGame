@@ -34,7 +34,7 @@ public class WallCreatureManager : MonoBehaviour
         }
         switch (_stage)
         {
-            case 0: _speed = 2f;
+            case 0: _speed = 7.5f;
                 break;
             case 1: _speed = 1.5f;
                 break;
