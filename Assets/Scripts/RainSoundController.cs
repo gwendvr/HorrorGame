@@ -17,4 +17,12 @@ public class RainSoundController : MonoBehaviour
     {
         
     }
+
+    private void FixedUpdate()
+    {
+        if (_Rain.volume != PlayerPrefs.GetFloat("volume"))
+        {
+            _Rain.volume = PlayerPrefs.GetFloat("volume");
+        }
+    }
 }

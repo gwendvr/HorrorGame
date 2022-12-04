@@ -20,10 +20,11 @@ public class PlayerController : MonoBehaviour
 
 
     //Private
+
     menuController _menu;
     private bool _isDead = false, _haveWon = false;
     Color _PlayerColor;
-    bool _canHide = false, _canTake = false;
+    bool _canHide = false;
     CreatureController CC;
     private Rigidbody2D rb;
     PlayerAction _playerInput;
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour
         _playerInput = new PlayerAction();
         _playerInput.Enable();
         _audio = GetComponent<AudioSource>();
-        _audio.volume = _audio.volume * PlayerPrefs.GetFloat("volume");
+        _audio.volume = 0.1f * PlayerPrefs.GetFloat("volume");
 
 
         _Animator.SetBool("IsMoving", false);
@@ -78,6 +79,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (_audio.volume != 0.1f * PlayerPrefs.GetFloat("volume"))
+        {
+            _audio.volume = 0.1f * PlayerPrefs.GetFloat("volume");
+        }
         rb.MovePosition(rb.position + moveInput * _moveSpeed * Time.deltaTime * _reduceSpeedIfCrouching * _blockIfHidden);
     }
 
@@ -168,7 +174,6 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.CompareTag("Knife"))
         {
-            _canTake = true;
             _isKnife = true;
         }
         if (collision.CompareTag("Win"))
@@ -296,5 +301,10 @@ public class PlayerController : MonoBehaviour
         {
             _Hud.Die();
         }
+    }
+
+    public void OnPause()
+    {
+        _Hud.ShowPause();
     }
 }

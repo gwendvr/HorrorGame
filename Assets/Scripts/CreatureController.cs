@@ -28,7 +28,7 @@ public class CreatureController : MonoBehaviour
         _player = FindObjectOfType<PlayerController>();
         _sprite = GetComponent<SpriteRenderer>();
         _ISeeYou = GetComponent<AudioSource>();
-        _ISeeYou.volume = _ISeeYou.volume * PlayerPrefs.GetFloat("volume");
+        _ISeeYou.volume = 0.05f * PlayerPrefs.GetFloat("volume");
 
         if (positionMaxLeft.x == 0)
         {
@@ -47,6 +47,11 @@ public class CreatureController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_ISeeYou.volume != 0.05f * PlayerPrefs.GetFloat("volume"))
+        {
+            _ISeeYou.volume = 0.05f * PlayerPrefs.GetFloat("volume");
+        }
+
         if (!_isWandering && !_isTriggered)
         {
             StartCoroutine(Wander());
@@ -110,7 +115,6 @@ public class CreatureController : MonoBehaviour
         }
 
     }
-
 
     public IEnumerator NewWanderingArea()
     {
@@ -187,4 +191,5 @@ public class CreatureController : MonoBehaviour
 
         }
     }
+
 }

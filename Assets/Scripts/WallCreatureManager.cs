@@ -17,7 +17,7 @@ public class WallCreatureManager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         _Audio= GetComponent<AudioSource>();
-        _Audio.volume = _Audio.volume * PlayerPrefs.GetFloat("volume");
+        _Audio.volume = 0.6f * PlayerPrefs.GetFloat("volume");
 
     }
 
@@ -26,6 +26,14 @@ public class WallCreatureManager : MonoBehaviour
     {
         rb.MovePosition(rb.position + Vector2.right * _speed * Time.deltaTime);
         //_Audio.volume = (_Player.transform.position.x / rb.position.x) - 0.5f;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_Audio.volume != 0.6f * PlayerPrefs.GetFloat("volume"))
+        {
+            _Audio.volume = 0.6f * PlayerPrefs.GetFloat("volume");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,4 +54,5 @@ public class WallCreatureManager : MonoBehaviour
                 break;
         }
     }
+
 }
