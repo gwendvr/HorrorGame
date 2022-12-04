@@ -193,6 +193,11 @@ public class PlayerController : MonoBehaviour
         {
             _Hud.ShowCrazy3();
         }
+
+        if (collision.CompareTag("Deadly"))
+        {
+            _Hud.Die();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

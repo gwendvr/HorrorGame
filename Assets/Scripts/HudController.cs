@@ -85,7 +85,7 @@ public class HudController : MonoBehaviour
 
     public void Win()
     {
-        if (_level.index < 4)
+        if (_level.index < 5)
         {
             _level.index += 1;
         }

@@ -6028,6 +6028,7 @@ MonoBehaviour:
   _Knife: {fileID: 1237396279}
   _level: {fileID: 0}
   _Pause: {fileID: 1806330746}
+  _start: {fileID: 0}
   _PauseParameters: {fileID: 475533371}
 --- !u!114 &1678398053
 MonoBehaviour:
@@ -6041,7 +6042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0790e65331d06844d9f88823039b6f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 4
+  index: 5
 --- !u!1 &1684053855
 GameObject:
   m_ObjectHideFlags: 0
