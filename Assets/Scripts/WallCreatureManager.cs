@@ -17,6 +17,8 @@ public class WallCreatureManager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         _Audio= GetComponent<AudioSource>();
+        _Audio.volume = _Audio.volume * PlayerPrefs.GetFloat("volume");
+
     }
 
     // Update is called once per frame

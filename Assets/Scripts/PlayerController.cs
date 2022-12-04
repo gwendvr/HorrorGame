@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
         _playerInput = new PlayerAction();
         _playerInput.Enable();
         _audio = GetComponent<AudioSource>();
+        _audio.volume = _audio.volume * PlayerPrefs.GetFloat("volume");
+
 
         _Animator.SetBool("IsMoving", false);
         _Animator.SetBool("IsUp", false);

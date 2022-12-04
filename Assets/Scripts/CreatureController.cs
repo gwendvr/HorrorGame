@@ -28,6 +28,8 @@ public class CreatureController : MonoBehaviour
         _player = FindObjectOfType<PlayerController>();
         _sprite = GetComponent<SpriteRenderer>();
         _ISeeYou = GetComponent<AudioSource>();
+        _ISeeYou.volume = _ISeeYou.volume * PlayerPrefs.GetFloat("volume");
+
         if (positionMaxLeft.x == 0)
         {
             positionMaxLeft.x = rb.position.x + 5f;
