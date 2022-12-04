@@ -10,6 +10,7 @@ public class HudController : MonoBehaviour
     public GameObject _Knife;
     public levelController _level;
     public PauseController _Pause;
+    public GameObject _start;
     public GameObject _PauseParameters;
 
     // Start is called before the first frame update
@@ -21,6 +22,8 @@ public class HudController : MonoBehaviour
         _level = GetComponent<levelController>();
 
         _Knife.SetActive(false);
+        _start.SetActive(true);
+
         if (_level.index == 4)
         {
             _AnimCrazyStep1.SetBool("Crazy1", true);
@@ -33,7 +36,10 @@ public class HudController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _start.SetActive(false);
+        }
     }
 
     public void ShowKnifeInventory()
