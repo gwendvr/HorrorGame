@@ -9,9 +9,15 @@ public class HudController : MonoBehaviour
     public Animator _AnimCrazyStep1, _AnimCrazyStep2, _AnimCrazyStep3;
     public GameObject _Knife;
     public levelController _level;
+    public PauseController _Pause;
+    public GameObject _PauseParameters;
+
     // Start is called before the first frame update
     void Start()
     {
+        
+        _PauseParameters.SetActive(false);
+
         _level = GetComponent<levelController>();
 
         _Knife.SetActive(false);
@@ -89,5 +95,11 @@ public class HudController : MonoBehaviour
         _level.index = 0;
         _level.loadlevel();
 
+    }
+
+    public void ShowPause()
+    {
+        Time.timeScale = 0;
+        _Pause.ShowMainPauseMenu();
     }
 }
