@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Niveau4.unity
     guid: f39ce2bb5f95003498953a949168277c
+  - enabled: 1
+    path: Assets/Scenes/Didacticiel.unity
+    guid: a79286f7da2036d4b9420dd0adb96d92
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fcf85d57afcbffa4e8f8a1f2fcdf4794, type: 2}
